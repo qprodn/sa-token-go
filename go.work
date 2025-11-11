@@ -19,6 +19,7 @@ use (
 	./integrations/echo
 	./integrations/fiber
 	./integrations/gin
+	./integrations/kratos
 	./storage/memory
 	./storage/redis
 	./stputil
