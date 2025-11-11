@@ -1,0 +1,115 @@
+syntax = "proto3";
+
+package helloworld.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "kratos-example/api/helloworld/v1;v1";
+
+// 用户服务
+service User {
+  // 用户登录
+  rpc Login (LoginRequest) returns (LoginReply) {
+    option (google.api.http) = {
+      post: "/api/login"
+      body: "*"
+    };
+  }
+
+  // 用户登出
+  rpc Logout (LogoutRequest) returns (LogoutReply) {
+    option (google.api.http) = {
+      post: "/api/logout"
+    };
+  }
+
+  // 获取用户信息（需要登录）
+  rpc GetUserInfo (GetUserInfoRequest) returns (GetUserInfoReply) {
+    option (google.api.http) = {
+      get: "/api/user/info"
+    };
+  }
+
+  // 管理员接口（需要admin角色）
+  rpc AdminOnly (AdminRequest) returns (AdminReply) {
+    option (google.api.http) = {
+      get: "/api/admin/dashboard"
+    };
+  }
+
+  // 需要特定权限的接口（需要user.edit权限）
+  rpc EditUser (EditUserRequest) returns (EditUserReply) {
+    option (google.api.http) = {
+      post: "/api/user/edit"
+      body: "*"
+    };
+  }
+
+  // 公开接口（无需登录）
+  rpc PublicInfo (PublicInfoRequest) returns (PublicInfoReply) {
+    option (google.api.http) = {
+      get: "/api/public/info"
+    };
+  }
+}
+
+// 登录请求
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+// 登录响应
+message LoginReply {
+  string token = 1;
+  string message = 2;
+  string user_id = 3;
+}
+
+// 登出请求
+message LogoutRequest {}
+
+// 登出响应
+message LogoutReply {
+  string message = 1;
+}
+
+// 获取用户信息请求
+message GetUserInfoRequest {}
+
+// 获取用户信息响应
+message GetUserInfoReply {
+  string user_id = 1;
+  string username = 2;
+  repeated string roles = 3;
+  repeated string permissions = 4;
+}
+
+// 管理员请求
+message AdminRequest {}
+
+// 管理员响应
+message AdminReply {
+  string message = 1;
+  string admin_info = 2;
+}
+
+// 编辑用户请求
+message EditUserRequest {
+  string user_id = 1;
+  string new_username = 2;
+}
+
+// 编辑用户响应
+message EditUserReply {
+  string message = 1;
+}
+
+// 公开信息请求
+message PublicInfoRequest {}
+
+// 公开信息响应
+message PublicInfoReply {
+  string message = 1;
+  string version = 2;
+}

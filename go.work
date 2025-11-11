@@ -9,6 +9,7 @@ use (
 	./examples/gin/gin-example
 	./examples/gin/gin-simple
 	./examples/jwt-example
+	./examples/kratos/kratos-example
 	./examples/listener-example
 	./examples/oauth2-example
 	./examples/quick-start/simple-example

@@ -26,8 +26,6 @@ type Rule struct {
 	Checkers []Checker
 	// Priority 规则优先级（数字越大优先级越高，默认0）
 	Priority int
-	// Name 规则名称（用于调试和日志）
-	Name string
 }
 
 // NewPlugin 创建认证插件
